@@ -8,7 +8,7 @@ export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [active, setActive] = useState('');
   // Start with a default 'dark' so server and initial client render match.
-  const [theme, setTheme] = useState('dark');
+  const [theme, setTheme] = useState('light');
 
   useEffect(() => {
     // Apply theme attribute whenever it changes
