@@ -1,0 +1,69 @@
+'use client';
+import { useEffect, useRef } from 'react';
+
+const items = [
+  {
+    type: 'work',
+    role: 'Full Stack Developer — Freelance',
+    period: '2026 – Sekarang',
+    desc: 'Membangun dan mengembangkan aplikasi web interaktif, dashboard manajemen data, serta integrasi API untuk berbagai project klien.',
+  },
+  {
+    type: 'edu',
+    role: 'SMKS Informatika',
+    period: '2023 – 2026',
+    desc: 'Mengambil konsentrasi Rekayasa Perangkat Lunak (RPL). Mempelajari algoritma pemrograman, web development, basis data, serta dasar-dasar software engineering.',
+  },
+];
+
+export default function ExperienceSection() {
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      entries => entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('opacity-100', 'translate-y-0');
+          e.target.classList.remove('opacity-0', 'translate-y-4');
+        }
+      }),
+      { threshold: 0.1 }
+    );
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section
+      id="experience"
+      ref={ref}
+      className="py-24 px-6 opacity-0 translate-y-4 transition-all duration-700"
+    >
+      <div className="divider mb-24" />
+      <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-12">
+        <div>
+          <p className="section-label">Experience</p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-text-primary tracking-tight leading-snug">
+            Perjalanan saya
+          </h2>
+        </div>
+
+        <div className="flex flex-col gap-0">
+          {items.map((item, i) => (
+            <div key={i} className="relative pl-4 border-l border-border pb-10 last:pb-0">
+              <div className="absolute left-[-4px] top-1.5 w-[7px] h-[7px] rounded-full bg-accent/60" />
+              <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1.5">
+                <p className="text-sm font-semibold text-text-primary">{item.role}</p>
+                <span className="text-xs font-mono text-text-muted">{item.period}</span>
+              </div>
+              <p className="text-sm text-text-secondary leading-relaxed">{item.desc}</p>
+              {i < items.length - 1 && (
+                <span className="absolute left-[-0.5px] top-5 bottom-0 w-[1px] bg-gradient-to-b from-border to-transparent" />
+              )}
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  );
+}
