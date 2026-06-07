@@ -4,19 +4,15 @@ import { useEffect, useRef } from 'react';
 const items = [
   {
     type: 'work',
-    company: 'Freelance / Self-Employed',
-    role: 'Full Stack Developer',
-    period: '2024 – Sekarang',
-    desc: 'Membangun dan mengembangkan aplikasi web interaktif, dashboard manajemen data, serta integrasi API untuk berbagai project klien. Spesialis Next.js, Laravel, dan PostgreSQL.',
-    tags: ['Next.js', 'Laravel', 'PostgreSQL', 'REST API'],
+    role: 'Full Stack Developer — Freelance',
+    period: '2026 – Sekarang',
+    desc: 'Membangun dan mengembangkan aplikasi web interaktif, dashboard manajemen data, serta integrasi API untuk berbagai project klien.',
   },
   {
     type: 'edu',
-    company: 'SMKS Informatika',
-    role: 'Rekayasa Perangkat Lunak (RPL)',
+    role: 'SMKS Informatika',
     period: '2023 – 2026',
-    desc: 'Mengambil konsentrasi Rekayasa Perangkat Lunak. Mempelajari algoritma pemrograman, web development, basis data, serta dasar-dasar software engineering dan sistem informasi.',
-    tags: ['Web Dev', 'Database', 'Algoritma', 'Software Engineering'],
+    desc: 'Mengambil konsentrasi Rekayasa Perangkat Lunak (RPL). Mempelajari algoritma pemrograman, web development, basis data, serta dasar-dasar software engineering.',
   },
 ];
 
@@ -26,7 +22,10 @@ export default function ExperienceSection() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       entries => entries.forEach(e => {
-        if (e.isIntersecting) e.target.classList.add('visible');
+        if (e.isIntersecting) {
+          e.target.classList.add('opacity-100', 'translate-y-0');
+          e.target.classList.remove('opacity-0', 'translate-y-4');
+        }
       }),
       { threshold: 0.1 }
     );
@@ -35,63 +34,29 @@ export default function ExperienceSection() {
   }, []);
 
   return (
-    <section id="experience" className="py-28 px-6">
-      <div className="divider mb-28" />
-      <div ref={ref} className="appear max-w-6xl mx-auto">
-        <span className="section-label">Experience</span>
-        <h2
-          className="font-black leading-tight mb-16"
-          style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', letterSpacing: '-1px' }}
-        >
-          <span style={{ WebkitTextStroke: '2px var(--text-primary)', color: 'transparent' }}>Work</span>
-          {' '}
-          <span style={{ color: 'var(--violet)' }}>Experience.</span>
-        </h2>
+    <section
+      id="experience"
+      ref={ref}
+      className="py-24 px-6 opacity-0 translate-y-4 transition-all duration-700"
+    >
+      <div className="divider mb-24" />
+      <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-12">
+        <div>
+          <p className="section-label">Experience</p>
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-tight leading-snug" style={{ color: 'var(--text-primary)' }}>
+            Perjalanan saya
+          </h2>
+        </div>
 
-        <div className="flex flex-col gap-6">
+        <div className="flex flex-col gap-0">
           {items.map((item, i) => (
-            <div
-              key={i}
-              className="card p-8 flex flex-col sm:flex-row gap-6 items-start"
-            >
-              {/* Icon */}
-              <div
-                className="shrink-0 w-12 h-12 rounded-2xl flex items-center justify-center text-xl font-black"
-                style={{
-                  background: item.type === 'work' ? 'var(--violet-light)' : 'var(--amber-light)',
-                  color: item.type === 'work' ? 'var(--violet)' : 'var(--amber)',
-                }}
-              >
-                {item.type === 'work' ? '💼' : '🎓'}
+            <div key={i} className="relative pl-4 pb-10 last:pb-0" style={{ borderLeft: '1px solid var(--border)' }}>
+              <div className="absolute left-[-4px] top-1.5 w-[7px] h-[7px] rounded-full" style={{ background: 'var(--violet)' }} />
+              <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1.5">
+                <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{item.role}</p>
+                <span className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>{item.period}</span>
               </div>
-
-              {/* Content */}
-              <div className="flex-1">
-                <div className="flex flex-wrap items-start justify-between gap-2 mb-2">
-                  <div>
-                    <p className="font-black text-base" style={{ color: 'var(--violet)', marginBottom: '2px' }}>
-                      {item.company}
-                    </p>
-                    <p className="font-bold" style={{ color: 'var(--text-primary)', fontSize: '1rem' }}>
-                      {item.role}
-                    </p>
-                  </div>
-                  <span
-                    className="text-xs font-semibold px-3 py-1 rounded-full"
-                    style={{ background: 'var(--surface)', color: 'var(--text-muted)', border: '1px solid var(--border)' }}
-                  >
-                    {item.period}
-                  </span>
-                </div>
-                <p className="text-sm leading-relaxed mb-4" style={{ color: 'var(--text-secondary)' }}>
-                  {item.desc}
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {item.tags.map(t => (
-                    <span key={t} className="tag" style={{ fontSize: '0.75rem' }}>{t}</span>
-                  ))}
-                </div>
-              </div>
+              <p className="text-sm leading-relaxed" style={{ color: 'var(--text-secondary)' }}>{item.desc}</p>
             </div>
           ))}
         </div>
