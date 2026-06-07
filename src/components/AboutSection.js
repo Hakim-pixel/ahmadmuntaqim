@@ -17,8 +17,8 @@ export default function AboutSection() {
   }, []);
 
   return (
-    <section id="about" className="py-28 px-6">
-      <div className="divider mb-28" />
+    <section id="about" className="py-16 px-6">
+      <div className="divider mb-12" />
       <div ref={ref} className="appear max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-16 items-start">
 
         {/* Photo */}

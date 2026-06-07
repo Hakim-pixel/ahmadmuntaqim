@@ -41,11 +41,11 @@ export default function SkillsSection() {
   }, []);
 
   return (
-    <section id="skills" className="py-28 overflow-hidden">
-      <div className="divider mb-28" />
+    <section id="skills" className="py-16 overflow-hidden">
+      <div className="divider mb-12" />
 
       {/* Heading */}
-      <div ref={ref} className="appear px-6 max-w-6xl mx-auto mb-16">
+      <div ref={ref} className="appear px-6 max-w-6xl mx-auto mb-10">
         <span className="section-label">Skills</span>
         <h2
           className="font-black"

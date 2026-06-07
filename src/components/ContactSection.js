@@ -43,8 +43,8 @@ export default function ContactSection() {
   };
 
   return (
-    <section id="contact" className="py-28 px-6">
-      <div className="divider mb-28" />
+    <section id="contact" className="py-16 px-6">
+      <div className="divider mb-12" />
       <div ref={ref} className="appear max-w-6xl mx-auto">
         <span className="section-label">Contact</span>
         <h2
