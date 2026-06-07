@@ -1,44 +1,20 @@
 'use client';
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
-const links = ['About', 'Skills', 'Projects', 'Experience', 'Contact'];
+const links = ['Home', 'About', 'Experience', 'Projects', 'Contact'];
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false);
+  const [active, setActive] = useState('Home');
   const [menuOpen, setMenuOpen] = useState(false);
-  const [active, setActive] = useState('');
-  // Start with a default 'dark' so server and initial client render match.
-  const [theme, setTheme] = useState('light');
-
-  useEffect(() => {
-    // Apply theme attribute whenever it changes
-    document.documentElement.setAttribute('data-theme', theme);
-    try {
-      localStorage.setItem('theme', theme);
-    } catch (e) {
-      // ignore
-    }
-  }, [theme]);
-
-  // Read stored theme preference after hydration and apply it once.
-  // We intentionally run this effect only on mount.
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  useEffect(() => {
-    try {
-      const saved = localStorage.getItem('theme');
-      // eslint-disable-next-line react-hooks/set-state-in-effect
-      if (saved && saved !== theme) setTheme(saved);
-    } catch (e) {
-      // ignore
-    }
-  }, []);
+  const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
     const onScroll = () => {
       setScrolled(window.scrollY > 40);
       const sections = links.map(l => document.getElementById(l.toLowerCase()));
       for (let i = sections.length - 1; i >= 0; i--) {
-        if (sections[i] && window.scrollY >= sections[i].offsetTop - 100) {
+        if (sections[i] && window.scrollY >= sections[i].offsetTop - 120) {
           setActive(links[i]);
           break;
         }
@@ -48,101 +24,81 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const toggleTheme = () => {
-    const nextTheme = theme === 'dark' ? 'light' : 'dark';
-    setTheme(nextTheme);
-    localStorage.setItem('theme', nextTheme);
-    document.documentElement.setAttribute('data-theme', nextTheme);
-  };
-
   const scrollTo = (id) => {
     setMenuOpen(false);
     document.getElementById(id.toLowerCase())?.scrollIntoView({ behavior: 'smooth' });
   };
 
   return (
-    <header className={`fixed top-0 inset-x-0 z-50 transition-all duration-300 ${
-      scrolled ? 'bg-[var(--header-bg)] backdrop-blur-md border-b border-border' : ''
-    }`}>
-      <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-        <div />
+    <header className="fixed top-0 inset-x-0 z-50 flex justify-center pt-5 px-4">
+      <nav className={`navbar-floating flex items-center gap-1 px-3 py-2 transition-all duration-300 ${scrolled ? 'shadow-lg' : ''}`}>
+        {/* Logo */}
+        <button
+          onClick={() => scrollTo('home')}
+          className="font-black text-lg mr-3 px-2 cursor-pointer bg-transparent border-0"
+          style={{ color: 'var(--text-primary)' }}
+        >
+          AM<span style={{ color: 'var(--pink)' }}>.</span>
+        </button>
 
-        <nav className="hidden md:flex items-center gap-8">
+        {/* Desktop links */}
+        <div className="hidden md:flex items-center gap-1">
           {links.map(link => (
             <button
               key={link}
               onClick={() => scrollTo(link)}
-              className={`text-sm bg-transparent border-0 cursor-pointer transition-colors duration-200 ${
-                active === link ? 'text-text-primary' : 'text-text-secondary hover:text-text-primary'
-              }`}
+              className={`nav-pill ${active === link ? 'active' : ''}`}
             >
               {link}
             </button>
           ))}
-          
-          {/* Theme Toggle Button */}
-          <button
-            onClick={toggleTheme}
-            className="flex items-center justify-center p-2 rounded-lg text-text-secondary hover:text-text-primary bg-transparent border-0 cursor-pointer transition-colors duration-200"
-            aria-label="Toggle Theme"
-          >
-            {theme === 'dark' ? (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-            ) : (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-            )}
-          </button>
-
-          <button onClick={() => scrollTo('contact')} className="btn-primary">
-            Hire Me
-          </button>
-        </nav>
-
-        <div className="flex md:hidden items-center gap-4">
-          {/* Mobile Theme Toggle Button */}
-          <button
-            onClick={toggleTheme}
-            className="flex items-center justify-center p-2 rounded-lg text-text-secondary hover:text-text-primary bg-transparent border-0 cursor-pointer transition-colors duration-200"
-            aria-label="Toggle Theme"
-          >
-            {theme === 'dark' ? (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-            ) : (
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-            )}
-          </button>
-
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="flex flex-col gap-[5px] bg-transparent border-0 cursor-pointer p-1"
-            aria-label="Menu"
-          >
-            <span className={`block w-5 h-[1.5px] bg-text-primary rounded transition-all duration-200 ${menuOpen ? 'rotate-45 translate-y-[6.5px]' : ''}`} />
-            <span className={`block w-5 h-[1.5px] bg-text-primary rounded transition-all duration-200 ${menuOpen ? 'opacity-0' : ''}`} />
-            <span className={`block w-5 h-[1.5px] bg-text-primary rounded transition-all duration-200 ${menuOpen ? '-rotate-45 -translate-y-[6.5px]' : ''}`} />
-          </button>
         </div>
-      </div>
+
+        {/* Hire Me */}
+        <button
+          onClick={() => scrollTo('contact')}
+          className="btn-primary ml-2 hidden md:inline-flex"
+          style={{ padding: '8px 18px', fontSize: '0.82rem' }}
+        >
+          Hire Me
+        </button>
+
+        {/* Mobile hamburger */}
+        <button
+          onClick={() => setMenuOpen(!menuOpen)}
+          className="md:hidden p-2 bg-transparent border-0 cursor-pointer ml-2"
+          aria-label="Menu"
+        >
+          <div className="flex flex-col gap-[5px]">
+            <span className={`block w-5 h-[2px] rounded transition-all duration-200 ${menuOpen ? 'rotate-45 translate-y-[7px]' : ''}`} style={{ background: 'var(--text-primary)' }} />
+            <span className={`block w-5 h-[2px] rounded transition-all duration-200 ${menuOpen ? 'opacity-0' : ''}`} style={{ background: 'var(--text-primary)' }} />
+            <span className={`block w-5 h-[2px] rounded transition-all duration-200 ${menuOpen ? '-rotate-45 -translate-y-[7px]' : ''}`} style={{ background: 'var(--text-primary)' }} />
+          </div>
+        </button>
+      </nav>
 
       {/* Mobile drawer */}
       {menuOpen && (
-        <div className="md:hidden bg-bg border-t border-border px-6 py-4">
-          <nav className="flex flex-col gap-1">
-            {links.map(link => (
-              <button
-                key={link}
-                onClick={() => scrollTo(link)}
-                className="text-left text-sm py-2.5 text-text-secondary hover:text-text-primary bg-transparent border-0 cursor-pointer transition-colors duration-200"
-              >
-                {link}
-              </button>
-            ))}
-            <div className="pt-2">
-              <button onClick={() => scrollTo('contact')} className="btn-primary w-full justify-center">
-                Hire Me
-              </button>
-            </div>
-          </nav>
+        <div
+          className="md:hidden fixed top-20 left-4 right-4 rounded-2xl p-4 flex flex-col gap-1"
+          style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-lg)' }}
+        >
+          {links.map(link => (
+            <button
+              key={link}
+              onClick={() => scrollTo(link)}
+              className="text-left py-2.5 px-4 rounded-xl text-sm font-semibold bg-transparent border-0 cursor-pointer transition-colors"
+              style={{ color: active === link ? 'var(--violet)' : 'var(--text-secondary)' }}
+            >
+              {link}
+            </button>
+          ))}
+          <button
+            onClick={() => scrollTo('contact')}
+            className="btn-primary mt-2 justify-center"
+          >
+            Hire Me
+          </button>
         </div>
       )}
     </header>

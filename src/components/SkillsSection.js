@@ -1,11 +1,23 @@
 'use client';
 import { useEffect, useRef } from 'react';
 
-const skills = {
-  Frontend: ['React.js', 'Next.js', 'JavaScript', 'TypeScript', 'Tailwind CSS', 'HTML & CSS'],
-  Backend: ['Node.js', 'Express.js', 'PHP', 'Laravel', 'REST API', 'PostgreSQL', 'MySQL'],
-  Tools: ['Git', 'Docker', 'Figma', 'Vercel', 'Linux', 'Postman'],
-};
+const row1 = [
+  'Next.js', 'React.js', 'TypeScript', 'Tailwind CSS', 'Laravel', 'PostgreSQL',
+  'Next.js', 'React.js', 'TypeScript', 'Tailwind CSS', 'Laravel', 'PostgreSQL',
+];
+const row2 = [
+  'MySQL', 'PHP', 'Git', 'Figma', 'Node.js', 'REST API', 'Docker', 'Vercel',
+  'MySQL', 'PHP', 'Git', 'Figma', 'Node.js', 'REST API', 'Docker', 'Vercel',
+];
+
+const tagColors = [
+  { bg: '#ede9fe', color: '#7c3aed' },
+  { bg: '#dbeafe', color: '#1d4ed8' },
+  { bg: '#d1fae5', color: '#065f46' },
+  { bg: '#fef3c7', color: '#92400e' },
+  { bg: '#fce7f3', color: '#9d174d' },
+  { bg: '#e0f2fe', color: '#0369a1' },
+];
 
 export default function SkillsSection() {
   const ref = useRef(null);
@@ -13,10 +25,7 @@ export default function SkillsSection() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       entries => entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('opacity-100', 'translate-y-0');
-          e.target.classList.remove('opacity-0', 'translate-y-4');
-        }
+        if (e.isIntersecting) e.target.classList.add('visible');
       }),
       { threshold: 0.1 }
     );
@@ -25,32 +34,51 @@ export default function SkillsSection() {
   }, []);
 
   return (
-    <section
-      id="skills"
-      ref={ref}
-      className="py-24 px-6 opacity-0 translate-y-4 transition-all duration-700"
-    >
-      <div className="divider mb-24" />
-      <div className="max-w-5xl mx-auto">
-        <p className="section-label">Skills</p>
-        <h2 className="text-2xl sm:text-3xl font-bold text-text-primary mb-3 tracking-tight">
-          Tech stack yang saya pakai
+    <section id="skills" className="py-28 px-6 overflow-hidden">
+      <div className="divider mb-28" />
+      <div ref={ref} className="appear max-w-6xl mx-auto mb-16">
+        <span className="section-label">Skills</span>
+        <h2
+          className="font-black leading-tight"
+          style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', letterSpacing: '-1px', color: 'var(--text-primary)' }}
+        >
+          Tech Skills<span style={{ color: 'var(--violet)' }}>.</span>
         </h2>
-        <p className="text-text-secondary mb-12 max-w-lg">
-          Teknologi yang biasa saya gunakan sehari-hari di project kerja maupun freelance.
-        </p>
+      </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-          {Object.entries(skills).map(([cat, items]) => (
-            <div key={cat}>
-              <p className="text-xs font-mono text-text-muted mb-4 tracking-wider uppercase">{cat}</p>
-              <div className="flex flex-wrap gap-2">
-                {items.map(skill => (
-                  <span key={skill} className="tag">{skill}</span>
-                ))}
-              </div>
-            </div>
-          ))}
+      {/* Marquee Row 1 */}
+      <div className="marquee-wrap mb-4">
+        <div className="marquee-track">
+          {row1.map((skill, i) => {
+            const c = tagColors[i % tagColors.length];
+            return (
+              <span
+                key={i}
+                className="tag"
+                style={{ background: c.bg, color: c.color, border: 'none', padding: '10px 20px', fontSize: '0.9rem', fontWeight: 700 }}
+              >
+                {skill}
+              </span>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Marquee Row 2 — reverse */}
+      <div className="marquee-wrap">
+        <div className="marquee-track-reverse">
+          {row2.map((skill, i) => {
+            const c = tagColors[(i + 2) % tagColors.length];
+            return (
+              <span
+                key={i}
+                className="tag"
+                style={{ background: c.bg, color: c.color, border: 'none', padding: '10px 20px', fontSize: '0.9rem', fontWeight: 700 }}
+              >
+                {skill}
+              </span>
+            );
+          })}
         </div>
       </div>
     </section>
