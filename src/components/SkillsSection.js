@@ -1,21 +1,30 @@
 'use client';
 import { useEffect, useRef } from 'react';
+import Image from 'next/image';
 
-const baseRow1 = ['Next.js', 'React.js', 'TypeScript', 'Tailwind CSS', 'Laravel', 'PostgreSQL', 'HTML & CSS', 'JavaScript'];
-const baseRow2 = ['MySQL', 'PHP', 'Git', 'Figma', 'Node.js', 'REST API', 'Docker', 'Vercel', 'Express.js', 'Linux'];
-
-// Triple to ensure seamless loop on all screen widths
-const row1 = [...baseRow1, ...baseRow1, ...baseRow1];
-const row2 = [...baseRow2, ...baseRow2, ...baseRow2];
-
-const tagColors = [
-  { bg: '#ede9fe', color: '#7c3aed' },
-  { bg: '#dbeafe', color: '#1d4ed8' },
-  { bg: '#d1fae5', color: '#065f46' },
-  { bg: '#fef3c7', color: '#92400e' },
-  { bg: '#fce7f3', color: '#9d174d' },
-  { bg: '#e0f2fe', color: '#0369a1' },
+const skills = [
+  { name: 'Laravel', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/laravel/laravel-original.svg' },
+  { name: 'React.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg' },
+  { name: 'Next.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nextjs/nextjs-original.svg' },
+  { name: 'TypeScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg' },
+  { name: 'Tailwind CSS', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/tailwindcss/tailwindcss-original.svg' },
+  { name: 'PostgreSQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/postgresql/postgresql-original.svg' },
+  { name: 'PHP', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/php/php-original.svg' },
+  { name: 'MySQL', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/mysql/mysql-original.svg' },
+  { name: 'JavaScript', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg' },
+  { name: 'Node.js', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/nodejs/nodejs-original.svg' },
+  { name: 'Git', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/git/git-original.svg' },
+  { name: 'Figma', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg' },
+  { name: 'Docker', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/docker/docker-original.svg' },
+  { name: 'Linux', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg' },
 ];
+
+// Split into 2 rows, duplicate for seamless marquee
+const half = Math.ceil(skills.length / 2);
+const row1Base = skills.slice(0, half);
+const row2Base = skills.slice(half);
+const row1 = [...row1Base, ...row1Base, ...row1Base];
+const row2 = [...row2Base, ...row2Base, ...row2Base];
 
 export default function SkillsSection() {
   const ref = useRef(null);
@@ -32,51 +41,104 @@ export default function SkillsSection() {
   }, []);
 
   return (
-    <section id="skills" className="py-28 px-6 overflow-hidden">
+    <section id="skills" className="py-28 overflow-hidden">
       <div className="divider mb-28" />
-      <div ref={ref} className="appear max-w-6xl mx-auto mb-16">
+
+      {/* Heading */}
+      <div ref={ref} className="appear px-6 max-w-6xl mx-auto mb-16">
         <span className="section-label">Skills</span>
         <h2
-          className="font-black leading-tight"
+          className="font-black"
           style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', letterSpacing: '-1px', color: 'var(--text-primary)' }}
         >
-          Tech Skills<span style={{ color: 'var(--violet)' }}>.</span>
+          Tech <span style={{ color: 'var(--violet)' }}>Skills</span>
+          <span style={{ color: 'var(--violet)' }}>.</span>
         </h2>
       </div>
 
-      {/* Marquee Row 1 */}
+      {/* Row 1 — left scroll */}
       <div className="marquee-wrap mb-4">
         <div className="marquee-track">
-          {row1.map((skill, i) => {
-            const c = tagColors[i % tagColors.length];
-            return (
+          {row1.map((skill, i) => (
+            <div
+              key={i}
+              className="flex items-center gap-3 px-5 py-3 rounded-2xl bg-white cursor-default select-none"
+              style={{
+                border: '1.5px solid var(--border)',
+                boxShadow: 'var(--shadow-sm)',
+                minWidth: '160px',
+                whiteSpace: 'nowrap',
+                transition: 'box-shadow 0.2s, border-color 0.2s',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.boxShadow = 'var(--shadow-md)';
+                e.currentTarget.style.borderColor = '#c4b5fd';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
+                e.currentTarget.style.borderColor = 'var(--border)';
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={skill.icon}
+                alt={skill.name}
+                width={28}
+                height={28}
+                style={{ objectFit: 'contain' }}
+                loading="lazy"
+              />
               <span
-                key={i}
-                className="tag"
-                style={{ background: c.bg, color: c.color, border: 'none', padding: '10px 20px', fontSize: '0.9rem', fontWeight: 700 }}
+                className="font-semibold text-sm"
+                style={{ color: 'var(--text-primary)' }}
               >
-                {skill}
+                {skill.name}
               </span>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
 
-      {/* Marquee Row 2 — reverse */}
+      {/* Row 2 — right scroll */}
       <div className="marquee-wrap">
         <div className="marquee-track-reverse">
-          {row2.map((skill, i) => {
-            const c = tagColors[(i + 2) % tagColors.length];
-            return (
+          {row2.map((skill, i) => (
+            <div
+              key={i}
+              className="flex items-center gap-3 px-5 py-3 rounded-2xl bg-white cursor-default select-none"
+              style={{
+                border: '1.5px solid var(--border)',
+                boxShadow: 'var(--shadow-sm)',
+                minWidth: '160px',
+                whiteSpace: 'nowrap',
+                transition: 'box-shadow 0.2s, border-color 0.2s',
+              }}
+              onMouseEnter={e => {
+                e.currentTarget.style.boxShadow = 'var(--shadow-md)';
+                e.currentTarget.style.borderColor = '#c4b5fd';
+              }}
+              onMouseLeave={e => {
+                e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
+                e.currentTarget.style.borderColor = 'var(--border)';
+              }}
+            >
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                src={skill.icon}
+                alt={skill.name}
+                width={28}
+                height={28}
+                style={{ objectFit: 'contain' }}
+                loading="lazy"
+              />
               <span
-                key={i}
-                className="tag"
-                style={{ background: c.bg, color: c.color, border: 'none', padding: '10px 20px', fontSize: '0.9rem', fontWeight: 700 }}
+                className="font-semibold text-sm"
+                style={{ color: 'var(--text-primary)' }}
               >
-                {skill}
+                {skill.name}
               </span>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
     </section>
