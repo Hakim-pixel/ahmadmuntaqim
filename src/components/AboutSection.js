@@ -45,11 +45,9 @@ export default function AboutSection() {
           <span className="section-label">About</span>
           <h2
             className="font-black leading-tight mb-6"
-            style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', letterSpacing: '-1px' }}
+            style={{ fontSize: 'clamp(1.8rem, 3.5vw, 2.6rem)', letterSpacing: '-1px', color: 'var(--text-primary)' }}
           >
-            I AM{' '}
-            <span className="badge-blue">AHMAD MUNTAQIM</span>{' '}
-            <span className="badge-emerald">FULL STACK DEVELOPER</span>
+            Sedikit tentang saya
           </h2>
 
           <div className="space-y-4 mb-10" style={{ color: 'var(--text-secondary)', fontSize: '0.97rem', lineHeight: '1.75' }}>

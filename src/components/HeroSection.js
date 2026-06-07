@@ -109,49 +109,19 @@ export default function HeroSection() {
           </div>
         </div>
 
-        {/* Right — Bento Card */}
+        {/* Right — Photo */}
         <div className="hidden lg:block">
-          <div className="bento-card w-[280px]" style={{ background: '#fef9c3' }}>
-            {/* Photo */}
-            <div className="relative w-full" style={{ height: '300px' }}>
-              <Image
-                src="/profile.jpg"
-                alt="Ahmad Muntaqim"
-                fill
-                className="object-cover object-top"
-                priority
-              />
-            </div>
-            {/* Glassmorphic overlay card */}
-            <div
-              className="mx-3 mb-3 -mt-12 relative z-10 rounded-2xl p-4 flex items-center justify-between gap-3"
-              style={{
-                background: 'rgba(255,255,255,0.85)',
-                backdropFilter: 'blur(12px)',
-                border: '1px solid rgba(255,255,255,0.9)',
-                boxShadow: '0 4px 16px rgba(0,0,0,0.08)'
-              }}
-            >
-              <div className="flex items-center gap-3">
-                <div className="relative w-9 h-9 rounded-full overflow-hidden ring-2 ring-white">
-                  <Image src="/profile.jpg" alt="avatar" fill className="object-cover object-top" />
-                </div>
-                <div>
-                  <p className="text-xs font-bold" style={{ color: 'var(--text-primary)' }}>@ahmadmntqm</p>
-                  <p className="flex items-center gap-1 text-xs" style={{ color: 'var(--emerald)' }}>
-                    <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 inline-block" />
-                    Online
-                  </p>
-                </div>
-              </div>
-              <button
-                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                className="btn-primary"
-                style={{ padding: '6px 12px', fontSize: '0.75rem', borderRadius: '8px' }}
-              >
-                Contact Me
-              </button>
-            </div>
+          <div
+            className="relative overflow-hidden"
+            style={{ width: '300px', height: '380px', borderRadius: '24px', boxShadow: 'var(--shadow-lg)', border: '1px solid var(--border)' }}
+          >
+            <Image
+              src="/profile.jpg"
+              alt="Ahmad Muntaqim"
+              fill
+              className="object-cover object-top"
+              priority
+            />
           </div>
         </div>
 
