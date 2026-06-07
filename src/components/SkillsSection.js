@@ -1,14 +1,12 @@
 'use client';
 import { useEffect, useRef } from 'react';
 
-const row1 = [
-  'Next.js', 'React.js', 'TypeScript', 'Tailwind CSS', 'Laravel', 'PostgreSQL',
-  'Next.js', 'React.js', 'TypeScript', 'Tailwind CSS', 'Laravel', 'PostgreSQL',
-];
-const row2 = [
-  'MySQL', 'PHP', 'Git', 'Figma', 'Node.js', 'REST API', 'Docker', 'Vercel',
-  'MySQL', 'PHP', 'Git', 'Figma', 'Node.js', 'REST API', 'Docker', 'Vercel',
-];
+const baseRow1 = ['Next.js', 'React.js', 'TypeScript', 'Tailwind CSS', 'Laravel', 'PostgreSQL', 'HTML & CSS', 'JavaScript'];
+const baseRow2 = ['MySQL', 'PHP', 'Git', 'Figma', 'Node.js', 'REST API', 'Docker', 'Vercel', 'Express.js', 'Linux'];
+
+// Triple to ensure seamless loop on all screen widths
+const row1 = [...baseRow1, ...baseRow1, ...baseRow1];
+const row2 = [...baseRow2, ...baseRow2, ...baseRow2];
 
 const tagColors = [
   { bg: '#ede9fe', color: '#7c3aed' },
