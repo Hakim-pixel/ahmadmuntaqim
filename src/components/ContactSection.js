@@ -10,10 +10,7 @@ export default function ContactSection() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       entries => entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('opacity-100', 'translate-y-0');
-          e.target.classList.remove('opacity-0', 'translate-y-4');
-        }
+        if (e.isIntersecting) e.target.classList.add('visible');
       }),
       { threshold: 0.1 }
     );
@@ -53,7 +50,7 @@ export default function ContactSection() {
     <section
       id="contact"
       ref={ref}
-      className="py-24 px-6 opacity-0 translate-y-4 transition-all duration-700"
+      className="appear py-24 px-6"
     >
       <div className="divider mb-24" />
       <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-16 items-start">
