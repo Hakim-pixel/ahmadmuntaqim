@@ -50,9 +50,9 @@ export default function ContactSection() {
     <section
       id="contact"
       ref={ref}
-      className="appear py-24 px-6"
+      className="appear py-16 px-6"
     >
-      <div className="divider mb-24" />
+      <div className="divider mb-12" />
       <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-[1fr_1.2fr] gap-16 items-start">
 
         {/* Kiri — Info */}
@@ -68,8 +68,8 @@ export default function ContactSection() {
 
           <div className="flex flex-col gap-4 text-sm">
             {[
-              { label: 'Email', val: 'rahmadciamis@gmail.com', href: 'mailto:rahmadciamis@gmail.com' },
-              { label: 'WhatsApp', val: '+62 895-1640-9902', href: 'https://wa.me/6289516409902' },
+              { label: 'Email', val: 'ahmadmuntaqim0@gmail.com', href: 'mailto:ahmadmuntaqim02@gmail.com' },
+              { label: 'WhatsApp', val: '+62 895-3288-54882', href: 'https://wa.me/6289516409902' },
               { label: 'GitHub', val: 'github.com/Hakim-pixel', href: 'https://github.com/Hakim-pixel' },
               { label: 'LinkedIn', val: 'linkedin.com/in/ahmad', href: 'https://linkedin.com' },
             ].map(c => (
@@ -176,7 +176,8 @@ export default function ContactSection() {
             <p className="text-xs" style={{ color: 'var(--text-muted)' }}>
               Atau langsung{' '}
               <a href="https://wa.me/6289516409902" target="_blank" rel="noreferrer"
-                style={{ color: 'var(--violet)', fontWeight: 600 }}>
+                className="hover:underline"
+                style={{ color: 'var(--text-primary)', fontWeight: 600 }}>
                 WhatsApp
               </a>
             </p>

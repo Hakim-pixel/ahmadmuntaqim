@@ -2,7 +2,7 @@
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 
-const links = ['Home', 'About', 'Experience', 'Projects', 'Contact'];
+const links = ['Home', 'About', 'Skills', 'Experience', 'Projects', 'Contact'];
 
 export default function Navbar() {
   const [active, setActive] = useState('Home');
@@ -14,15 +14,25 @@ export default function Navbar() {
       setScrolled(window.scrollY > 40);
       const sections = links.map(l => document.getElementById(l.toLowerCase()));
       for (let i = sections.length - 1; i >= 0; i--) {
-        if (sections[i] && window.scrollY >= sections[i].offsetTop - 120) {
+        if (sections[i] && window.scrollY >= sections[i].offsetTop - 140) {
           setActive(links[i]);
           break;
         }
       }
     };
-    window.addEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    onScroll();
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
+
+  useEffect(() => {
+    if (!menuOpen) return;
+    const handleKeyDown = (e) => {
+      if (e.key === 'Escape') setMenuOpen(false);
+    };
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [menuOpen]);
 
   const scrollTo = (id) => {
     setMenuOpen(false);
@@ -67,7 +77,8 @@ export default function Navbar() {
         <button
           onClick={() => setMenuOpen(!menuOpen)}
           className="md:hidden p-2 bg-transparent border-0 cursor-pointer ml-2"
-          aria-label="Menu"
+          aria-label="Toggle navigation menu"
+          aria-expanded={menuOpen}
         >
           <div className="flex flex-col gap-[5px]">
             <span className={`block w-5 h-[2px] rounded transition-all duration-200 ${menuOpen ? 'rotate-45 translate-y-[7px]' : ''}`} style={{ background: 'var(--text-primary)' }} />
@@ -79,27 +90,33 @@ export default function Navbar() {
 
       {/* Mobile drawer */}
       {menuOpen && (
-        <div
-          className="md:hidden fixed top-20 left-4 right-4 rounded-2xl p-4 flex flex-col gap-1"
-          style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-lg)' }}
-        >
-          {links.map(link => (
-            <button
-              key={link}
-              onClick={() => scrollTo(link)}
-              className="text-left py-2.5 px-4 rounded-xl text-sm font-semibold bg-transparent border-0 cursor-pointer transition-colors"
-              style={{ color: active === link ? 'var(--violet)' : 'var(--text-secondary)' }}
-            >
-              {link}
-            </button>
-          ))}
-          <button
-            onClick={() => scrollTo('contact')}
-            className="btn-primary mt-2 justify-center"
+        <>
+          <div
+            className="md:hidden fixed inset-0 z-40 bg-black/15 backdrop-blur-[2px]"
+            onClick={() => setMenuOpen(false)}
+          />
+          <div
+            className="md:hidden fixed top-20 left-4 right-4 z-50 rounded-2xl p-4 flex flex-col gap-1"
+            style={{ background: 'var(--bg-card)', border: '1px solid var(--border)', boxShadow: 'var(--shadow-lg)' }}
           >
-            Hire Me
-          </button>
-        </div>
+            {links.map(link => (
+              <button
+                key={link}
+                onClick={() => scrollTo(link)}
+                className="text-left py-2.5 px-4 rounded-xl text-sm font-semibold bg-transparent border-0 cursor-pointer transition-colors"
+                style={{ color: active === link ? 'var(--violet)' : 'var(--text-secondary)' }}
+              >
+                {link}
+              </button>
+            ))}
+            <button
+              onClick={() => scrollTo('contact')}
+              className="btn-primary mt-2 justify-center"
+            >
+              Hire Me
+            </button>
+          </div>
+        </>
       )}
     </header>
   );

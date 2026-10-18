@@ -31,7 +31,7 @@ export async function POST(request) {
         <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 24px; background: #f9f9f9; border-radius: 8px;">
           <h2 style="color: #1a1a2e; margin-bottom: 4px;">Pesan baru dari portfolio kamu</h2>
           <p style="color: #666; font-size: 14px; margin-bottom: 24px; border-bottom: 1px solid #eee; padding-bottom: 16px;">
-            Dikirim via form kontak di <strong>fp.dev</strong>
+            Dikirim via form kontak di <strong>portfolio Ahmad Muntaqim</strong>
           </p>
           
           <table style="width: 100%; border-collapse: collapse;">

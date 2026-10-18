@@ -27,7 +27,7 @@ const projects = [
     tags: ['Next.js', 'React', 'Tailwind CSS', 'Canvas API'],
     category: 'Web App',
     year: '2026',
-    links: { github: 'https://github.com/Hakim-pixel/GxyerBooth', live: 'https://gxyer-booth.vercel.app' },
+    links: { github: 'https://github.com/Hakim-pixel/GxyerBooth', live: 'https://gxyerbooth.vercel.app/' },
   },
   {
     id: 4,
@@ -76,10 +76,7 @@ export default function ProjectsSection() {
   useEffect(() => {
     const observer = new IntersectionObserver(
       entries => entries.forEach(e => {
-        if (e.isIntersecting) {
-          e.target.classList.add('opacity-100', 'translate-y-0');
-          e.target.classList.remove('opacity-0', 'translate-y-4');
-        }
+        if (e.isIntersecting) e.target.classList.add('visible');
       }),
       { threshold: 0.1 }
     );
@@ -93,7 +90,7 @@ export default function ProjectsSection() {
     <section
       id="projects"
       ref={ref}
-      className="py-16 px-6 opacity-0 translate-y-4 transition-all duration-700"
+      className="appear py-16 px-6"
     >
       <div className="divider mb-12" />
       <div className="max-w-5xl mx-auto">
@@ -113,9 +110,9 @@ export default function ProjectsSection() {
               onClick={() => setActive(cat)}
               className="px-3 py-1 rounded-md text-xs font-medium border transition-all duration-200 cursor-pointer"
               style={{
-                background: active === cat ? 'rgba(139,92,246,0.1)' : 'transparent',
-                color: active === cat ? 'var(--violet)' : 'var(--text-secondary)',
-                borderColor: active === cat ? 'rgba(139,92,246,0.3)' : 'var(--border)',
+                background: active === cat ? '#1e293b' : 'transparent',
+                color: active === cat ? '#ffffff' : 'var(--text-secondary)',
+                borderColor: active === cat ? '#1e293b' : 'var(--border)',
               }}
             >
               {cat}
@@ -126,18 +123,18 @@ export default function ProjectsSection() {
         {/* Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {filtered.map(p => (
-            <div key={p.id} className="card p-5 flex flex-col gap-3 hover:-translate-y-0.5 transition-transform duration-200">
-              <div className="flex items-start justify-between gap-2">
+            <div key={p.id} className="card p-5 flex flex-col hover:-translate-y-0.5 transition-all duration-200">
+              <div className="flex items-start justify-between gap-2 mb-2">
                 <h3 className="text-sm font-semibold leading-snug" style={{ color: 'var(--text-primary)' }}>{p.title}</h3>
                 <span className="text-xs font-mono shrink-0" style={{ color: 'var(--text-muted)' }}>{p.year}</span>
               </div>
-              <p className="text-xs leading-relaxed flex-1" style={{ color: 'var(--text-secondary)' }}>{p.description}</p>
-              <div className="flex flex-wrap gap-1.5">
+              <p className="text-xs leading-relaxed mb-4 flex-1" style={{ color: 'var(--text-secondary)' }}>{p.description}</p>
+              <div className="flex flex-wrap gap-1.5 mb-4">
                 {p.tags.map(t => (
                   <span key={t} className="tag" style={{ fontSize: '10px', padding: '2px 8px' }}>{t}</span>
                 ))}
               </div>
-              <div className="flex gap-4 pt-1" style={{ borderTop: '1px solid var(--border)' }}>
+              <div className="flex gap-4 pt-3 mt-auto" style={{ borderTop: '1px solid var(--border)' }}>
                 {p.links.github && p.links.github !== '#' && (
                   <a href={p.links.github} target="_blank" rel="noreferrer"
                     className="text-xs flex items-center gap-1 transition-colors"

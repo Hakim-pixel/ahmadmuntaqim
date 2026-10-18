@@ -19,12 +19,12 @@ const skills = [
   { name: 'Linux', icon: 'https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/linux/linux-original.svg' },
 ];
 
-// Split into 2 rows, duplicate for seamless marquee
+// Split into 2 rows, duplicate evenly so translateX(-50%) loops seamlessly without jitter
 const half = Math.ceil(skills.length / 2);
 const row1Base = skills.slice(0, half);
 const row2Base = skills.slice(half);
-const row1 = [...row1Base, ...row1Base, ...row1Base];
-const row2 = [...row2Base, ...row2Base, ...row2Base];
+const row1 = [...row1Base, ...row1Base, ...row1Base, ...row1Base];
+const row2 = [...row2Base, ...row2Base, ...row2Base, ...row2Base];
 
 export default function SkillsSection() {
   const ref = useRef(null);
@@ -45,14 +45,13 @@ export default function SkillsSection() {
       <div className="divider mb-12" />
 
       {/* Heading */}
-      <div ref={ref} className="appear px-6 max-w-6xl mx-auto mb-10">
+      <div ref={ref} className="appear px-6 max-w-5xl mx-auto mb-10">
         <span className="section-label">Skills</span>
         <h2
           className="font-black"
           style={{ fontSize: 'clamp(2rem, 4vw, 3rem)', letterSpacing: '-1px', color: 'var(--text-primary)' }}
         >
-          Tech <span style={{ color: 'var(--violet)' }}>Skills</span>
-          <span style={{ color: 'var(--violet)' }}>.</span>
+          Tech <span style={{ color: 'var(--text-secondary)' }}>Skills</span>.
         </h2>
       </div>
 
@@ -72,7 +71,7 @@ export default function SkillsSection() {
               }}
               onMouseEnter={e => {
                 e.currentTarget.style.boxShadow = 'var(--shadow-md)';
-                e.currentTarget.style.borderColor = '#c4b5fd';
+                e.currentTarget.style.borderColor = '#94a3b8';
               }}
               onMouseLeave={e => {
                 e.currentTarget.style.boxShadow = 'var(--shadow-sm)';
@@ -115,7 +114,7 @@ export default function SkillsSection() {
               }}
               onMouseEnter={e => {
                 e.currentTarget.style.boxShadow = 'var(--shadow-md)';
-                e.currentTarget.style.borderColor = '#c4b5fd';
+                e.currentTarget.style.borderColor = '#94a3b8';
               }}
               onMouseLeave={e => {
                 e.currentTarget.style.boxShadow = 'var(--shadow-sm)';

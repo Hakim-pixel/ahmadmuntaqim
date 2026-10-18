@@ -73,7 +73,7 @@ export default function AboutSection() {
               <div key={s.label} className="card p-5 text-center">
                 <p
                   className="font-black mb-1"
-                  style={{ fontSize: '1.8rem', color: 'var(--violet)', letterSpacing: '-1px' }}
+                  style={{ fontSize: '1.8rem', color: 'var(--text-primary)', letterSpacing: '-1px' }}
                 >
                   {s.n}
                 </p>
@@ -94,7 +94,7 @@ export default function AboutSection() {
                   {i.label}
                 </p>
                 {i.href
-                  ? <a href={i.href} className="font-medium transition-colors" style={{ color: 'var(--violet)' }}>{i.val}</a>
+                  ? <a href={i.href} className="font-medium transition-colors hover:underline" style={{ color: 'var(--text-primary)' }}>{i.val}</a>
                   : <p className="font-medium" style={{ color: 'var(--text-primary)' }}>{i.val}</p>
                 }
               </div>

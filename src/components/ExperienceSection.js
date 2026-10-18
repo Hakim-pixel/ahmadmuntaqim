@@ -34,9 +34,9 @@ export default function ExperienceSection() {
     <section
       id="experience"
       ref={ref}
-      className="appear py-24 px-6"
+      className="appear py-16 px-6"
     >
-      <div className="divider mb-24" />
+      <div className="divider mb-12" />
       <div className="max-w-5xl mx-auto grid grid-cols-1 lg:grid-cols-[200px_1fr] gap-12">
         <div>
           <p className="section-label">Experience</p>
@@ -47,8 +47,11 @@ export default function ExperienceSection() {
 
         <div className="flex flex-col gap-0">
           {items.map((item, i) => (
-            <div key={i} className="relative pl-4 pb-10 last:pb-0" style={{ borderLeft: '1px solid var(--border)' }}>
-              <div className="absolute left-[-4px] top-1.5 w-[7px] h-[7px] rounded-full" style={{ background: 'var(--violet)' }} />
+            <div key={i} className="relative pl-6 pb-8 last:pb-0" style={{ borderLeft: '1px solid var(--border)' }}>
+              <div
+                className="absolute left-[-4.5px] top-1.5 w-2 h-2 rounded-full"
+                style={{ background: '#475569', boxShadow: '0 0 0 3px var(--bg)' }}
+              />
               <div className="flex flex-wrap items-baseline justify-between gap-2 mb-1.5">
                 <p className="text-sm font-semibold" style={{ color: 'var(--text-primary)' }}>{item.role}</p>
                 <span className="text-xs font-mono" style={{ color: 'var(--text-muted)' }}>{item.period}</span>
