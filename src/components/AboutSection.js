@@ -85,8 +85,8 @@ export default function AboutSection() {
           {/* Info */}
           <div className="flex flex-col sm:flex-row gap-8 text-sm mb-8">
             {[
-              { label: 'Email', val: 'rahmadciamis@gmail.com', href: 'mailto:rahmadciamis@gmail.com' },
-              { label: 'Status', val: '🟢 Open for work' },
+              { label: 'Email', val: 'rahmadciamis@gmail.com', href: 'mailto:ahmadmuntaqim0@gmail.com' },
+              { label: 'Status', val: 'Available for work' },
               { label: 'Bahasa', val: 'Indonesia, English' },
             ].map(i => (
               <div key={i.label}>
